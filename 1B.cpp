@@ -13,21 +13,20 @@ int main() {
     std::cin >> mandagor;
     mandagors[i] = log(mandagor);
   }
-  std::vector<long double> summs(quantity + 1, 0);
+  std::vector<long double> prefix_sum(quantity + 1, 0);
   for (int i = 1; i <= quantity; ++i) {
-    summs[i] = summs[i - 1] + mandagors[i - 1];
+    prefix_sum[i] = prefix_sum[i - 1] + mandagors[i - 1];
   }
-  int number_or_req;
-  std::cin >> number_or_req;
-  std::vector<long double> ans(number_or_req);
+  int number_of_request;
+  std::cin >> number_of_request;
   int left;
   int right;
-  for (int i = 0; i < number_or_req; ++i) {
+  for (int i = 0; i < number_of_request; ++i) {
     std::cin >> left >> right;
-    ans[i] = exp((summs[right + 1] - summs[left]) / (right - left + 1));
-  }
-  for (int i = 0; i < number_or_req; ++i) {
-    std::cout << std::fixed << ans[i] << '\n';
+    std::cout << std::fixed
+              << exp((prefix_sum[right + 1] - prefix_sum[left]) /
+                     (right - left + 1))
+              << '\n';
   }
   return 0;
 }
